@@ -23,13 +23,6 @@ jobs:
       uses: eskatos/gradle-command-action@v1
       with:
         arguments: test
-    - name: Bump-N-Tag Version
-      uses: vinodhraj/Bump-N-Tag-Version@v1.0.1
-      with:
-        # Name of the version file
-        file_name: VERSION
-        # States whether to create tag for this version or not
-        tag_version: true
     - name: Gradle Command
       uses: eskatos/gradle-command-action@v1
       with:
