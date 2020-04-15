@@ -1,9 +1,10 @@
 plugins {
     kotlin("jvm") version "1.3.61"
+    id("com.jfrog.bintray") version "1.8.5"
 }
 
 group = "org.example"
-version = "1.0-SNAPSHOT"
+version = file("VERSION").readText().trim()
 
 repositories {
     google()
@@ -31,6 +32,21 @@ tasks {
     jar {
         manifest {
             attributes("Lint-Registry-v2" to "com.hedvig.lint.HedvigIssueRegistry")
+        }
+    }
+    bintray {
+        user = System.getenv("BINTRAY_USER")
+        key = System.getenv("BINTRAY_KEY")
+        setConfigurations("archives")
+        pkg = PackageConfig().apply {
+            repo = "bintray-hedvig-hedvig-java"
+            name = "hedvig-android-lint"
+            userOrg = "hedvig"
+            vcsUrl = "https://github.com/HedvigInsurance/android-lint"
+            setLicenses("AGPL-3.0-only")
+            version = VersionConfig().apply {
+                name = project.version.toString()
+            }
         }
     }
 }
