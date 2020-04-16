@@ -1,2 +1,1 @@
-rootProject.name = "hedvig-android-lint"
-
+include(":checks", ":library")
