@@ -23,21 +23,22 @@ dependencies {
 publishing {
     publications {
         create<MavenPublication>("hedvig-android-lint") {
-            pom.withXml {
-                groupId = project.group.toString()
-                artifactId = "android-lint"
-                artifact("$buildDir/outputs/aar/library-release.aar")
-                version = project.version.toString()
-            }
+            groupId = project.group.toString()
+            artifactId = "android-lint"
+            artifact("$buildDir/outputs/aar/library-release.aar")
+            version = project.version.toString()
         }
     }
 }
 
 tasks {
+    publish {
+        dependsOn("assemble")
+    }
     bintray {
         user = System.getenv("BINTRAY_USER")
         key = System.getenv("BINTRAY_KEY")
-        setConfigurations("archives")
+        setPublications("hedvig-android-lint")
         publish = true
         pkg.apply {
             repo = "hedvig-java"
